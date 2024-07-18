@@ -1,0 +1,1 @@
+git merge master --no-ff -m "Merge branch 'master' into main"
