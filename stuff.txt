@@ -1,1 +1,3 @@
 git merge master --no-ff -m "Merge branch 'master' into main"
+git remote set-url origin <book1-review-app>
+git remote set-url origin https://github.com/new-user/new-repo.git 
