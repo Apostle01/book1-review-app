@@ -2,3 +2,5 @@ git merge master --no-ff -m "Merge branch 'master' into main"
 git remote set-url origin <book1-review-app>
 git remote set-url origin https://github.com/new-user/new-repo.git 
 heroku git:remote -a book1-review-app
+heroku releases:rollback v3 -a book1-review-app
+heroku releases -a book1-review-app
