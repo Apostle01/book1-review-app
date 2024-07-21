@@ -2,12 +2,27 @@ from flask import Flask, render_template, redirect, url_for, flash, session, req
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, BookForm, CommentForm
-from models import db, User, Book, Comment
-from config import Config
+from models import db, Users, Book, Comment
+#from config import Config
 import logging
-
+import os
+if os.path.exists("env.py"):
+    import env
 app = Flask(__name__)
-app.config.from_object(Config)
+# app.config.from_object(Config)
+
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+ 
+# Select the database based on development status
+if os.environ.get("DEVELOPMENT") == "True":
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+else:
+    uri = os.environ.get("DATABASE_URL")
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+        app.config["SQLALCHEMY_DATABASE_URI"] = uri
+ 
+
 db.init_app(app)
 
 with app.app_context():
@@ -25,7 +40,7 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = Users.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
             session['user_id'] = user.id
             flash('Login successful', 'success')
@@ -39,7 +54,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=8)
-        new_user = User(username=form.username.data, password=hashed_password)
+        new_user = Users(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful', 'success')
