@@ -3,16 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, BookForm, CommentForm
 from models import db, Users, Book, Comment
-#from config import Config
+from config import Config
 import logging
 import os
+
 if os.path.exists("env.py"):
     import env
-app = Flask(__name__)
-# app.config.from_object(Config)
 
+app = Flask(__name__)
+
+# Use environment variables for configuration
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
- 
+
 # Select the database based on development status
 if os.environ.get("DEVELOPMENT") == "True":
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
@@ -20,8 +22,7 @@ else:
     uri = os.environ.get("DATABASE_URL")
     if uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
-        app.config["SQLALCHEMY_DATABASE_URI"] = uri
- 
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
 db.init_app(app)
 
@@ -141,4 +142,5 @@ def book_details(book_id):
     return render_template('book_details.html', book=book, form=form)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
