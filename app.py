@@ -38,7 +38,6 @@ def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
     return render_template('index.html', messages=messages)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -56,7 +55,9 @@ def login():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=8)
+        hashed_password = generate_password_hash(
+            form.password.data, method='pbkdf2:sha256', salt_length=8
+        )
         new_user = Users(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
