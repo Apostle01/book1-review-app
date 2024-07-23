@@ -1,3 +1,6 @@
+
+https://git.heroku.com/padomabook-review-app.git
+https://apostle01.github.io/book1-review-app/
 # [book1-review-app Screenshot of the website.](/docs/am-i-responsive.png)
 
 book1-review-app is a simple web application for managing reviews. Users can view, add, and edit book reviews, but only administrators can delete them.
