@@ -1,4 +1,4 @@
-# [book1-review-app Screenshot of the website.](/docs/am-i-responsive.png)
+# [book1-review-app Screenshot of the website.](/images/am-i-responsive.png)
 
 book1-review-app is a simple web application for managing reviews. Users can view, add, and edit book reviews, but only administrators can delete them.
 
