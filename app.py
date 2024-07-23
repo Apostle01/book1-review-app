@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 @app.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
-    return render_template('index.html', messages=messages)
+    return render_template('home.html', messages=messages)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
