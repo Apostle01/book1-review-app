@@ -1,15 +1,13 @@
-<!-- # ReelTalk - Testing
+# book1-review-app - Testing
 
-![ReelTalk. Screenshot of website](reeltalk/static/documents/reeltalk-am-i-responsive.png)
+![book1-review-app. Screenshot of website](docs/am-i-responsive.png)
 
-[View ReelTalk on Heroku](https://reeltalk-rd-86df5744ce6e.herokuapp.com/)
+[View book1-review-app on Heroku](https://padomabook-review-app-f5b05cde500b.herokuapp.com/)
 
 ## CONTENTS
 
 - [Automated Testing](#Automated-Testing)
   - [W3C Validator](#W3C-Validator)
-  - [JavaScript Validator](#JavaScript-Validator)
-  - [Lighthouse Testing](#Lighthouse-Testing)
   - [Wave Testing](#Wave-Testing)
   - [CI Python Linter](#ci-python-linter)
 - [Manual Testing](#Manual-Testing)
@@ -23,42 +21,10 @@
 
 Testing was continuous throughout the website build. I used Chrome developer tools to identify and address any issues as they arose.
 
-- My automated testing consisted of using W3C Validator, JSHint, Lighthouse, Wave and the CI Linter Python.
+- My automated testing consisted of using Wave and the CI Linter Python.
 - I then manually tested the user stories along with the functionality of the website.
 
 ## Automated Testing
-
-### W3C Validator
-
-W3C validator was used to validate the HTML on all pages of the website. It was also used to validate CSS in the style.css file.
-
-- All pages pass the W3C validator.
-
-
-- [Home Page](reeltalk/static/documents/w3-homepage.png)
-- [Login Page](reeltalk/static/documents/w3-login.png)
-- [Sign Up Page](reeltalk/static/documents/w3-sign-up.png)
-- [Search Page](reeltalk/static/documents/w3-search-movies.png)
-- [Search Results Page](reeltalk/static/documents/w3-search-results.png)
-- [Add Review Page](reeltalk/static/documents/w3-review.png)
-- [Edit Review Page](reeltalk/static/documents/w3-edit-review.png)
-- [My Reviews Page](reeltalk/static/documents/w3-my-reviews.png)
-- [Movie Reviews Page](reeltalk/static/documents/w3-movie-reviews.png)
-- [404 Page](reeltalk/static/documents/w3-404-page.png)
-- [500 Page](reeltalk/static/documents/w3-500-page.png)
-- [403 Page](reeltalk/static/documents/w3-403-page.png)
-- [CSS](reeltalk/static/documents/reeltalk-w3-css.png)
-
-
-
-### JavaScript Validator
-
-[JSHint](https://jshint.com/) was used to validate the JavaScript.
-
-- [Script.js](reeltalk/static/documents/jshint-script.js.png)
-
-- All pages pass the JSHint validator.
-
 
 ### Lighthouse Testing
 
@@ -73,48 +39,24 @@ I took the opportunity to utilize Lighthouse within Chrome Developer Tools. This
 
   #### Home Page
 
-![Home Page](reeltalk/static/documents/lighthouse-desktop-home-page.png)
+![Home Page](docs/deskT.png)
 
   #### Login Page
 
- ![Login Page](reeltalk/static/documents/lighthouse-desktop-login.png)
+ ![Login Page](docs/loginP.png)
 
  #### Sign Up Page
 
- ![Sign Up Page](reeltalk/static/documents/lighthouse-desktop-sign-up.png)
+ ![Register Page](docs/registerP.png)
  
  #### Search Page
  
- ![Search Page](reeltalk/static/documents/lighthouse-desktop-search-movies.png)
- 
-  #### Add Review Page
- 
- ![Add Review Page](reeltalk/static/documents/lighthouse-desktop-review.png)
- 
- #### Edit Review Page
- 
- ![Edit Review Page](reeltalk/static/documents/lighthouse-desktop-edit-review.png)
- 
- #### My Reviews Page
- 
- ![My Reviews Page](reeltalk/static/documents/lighthouse-desktop-my-reviews.png)
- 
- #### Movie Reviews Page
- 
- ![Movie Reviews Page](reeltalk/static/documents/lighthouse-desktop-movie-reviews.png)
- 
+ ![Search Page](docs/searchP.png)
+  
  #### 404 Page
  
- ![404 Page](reeltalk/static/documents/lighthouse-desktop-404.png)
+ ![404 Page](docs/404P.png)
  
- #### 500 Page
- 
- ![500 Page](reeltalk/static/documents/lighthouse-desktop-500-page.png)
-
- #### 403 Page
- 
- ![403 Page](reeltalk/static/documents/lighthouse-desktop-403.png)
-
 </details>
 
 #### Mobile Testing
@@ -124,47 +66,29 @@ I took the opportunity to utilize Lighthouse within Chrome Developer Tools. This
 
   #### Home Page
 
-![Home Page](reeltalk/static/documents/lighthouse-mobile-home-page.png)
+![Home Page](docs/deskT.png)
 
   #### Login Page
 
- ![Login Page](reeltalk/static/documents/lighthouse-mobile-login.png)
+ ![Login Page](docs/loginP.png)
 
  #### Sign Up Page
 
- ![Sign Up Page](reeltalk/static/documents/lighthouse-mobile-sign-up.png)
+ ![Register Page](docs/registerP.png)
  
  #### Search Page
  
- ![Search Page](reeltalk/static/documents/lighthouse-mobile-search-movies.png)
+ ![Search Page](docs/searchP.png)
  
   #### Add Review Page
  
- ![Add Review Page](reeltalk/static/documents/lighthouse-mobile-review.png)
- 
- #### Edit Review Page
- 
- ![Edit Review Page](reeltalk/static/documents/lighthouse-mobile-edit-review.png)
- 
- #### My Reviews Page
- 
- ![My Reviews Page](reeltalk/static/documents/lighthouse-mobile-my-reviews.png)
- 
- #### Movie Reviews Page
- 
- ![Movie Reviews Page](reeltalk/static/documents/lighthouse-mobile-movie-reviews.png)
+ ![Add Review Page](docs/reviewP.png)
  
  #### 404 Page
  
- ![404 Page](reeltalk/static/documents/lighthouse-mobile-404.png)
- 
- #### 500 Page
- 
- ![500 Page](reeltalk/static/documents/lighthouse-mobile-500-page.png)
+ ![404 Page](docs/404P.png)
 
-  #### 403 Page
  
- ![403 Page](reeltalk/static/documents/lighthouse-mobile-403.png)
 
 </details>
 
@@ -177,51 +101,16 @@ I took the opportunity to utilize Lighthouse within Chrome Developer Tools. This
 
   #### Home Page
 
-![Home Page](reeltalk/static/documents/wave-home-page.png)
+![Home Page](docs/home.png)
 
   #### Login Page
 
- ![Login Page](reeltalk/static/documents/wave-login-page.png)
+ ![Login Page](docs/login.png)
 
- #### Sign Up Page
+ #### Register Page
 
- ![Sign Up Page](reeltalk/static/documents/wave-sign-up-page.png)
+ ![Register Page](docs/register.png)
  
- #### Search Page
- 
- ![Search Page](reeltalk/static/documents/wave-search-movies.png)
- 
-  #### Add Review Page
- 
- ![Add Review Page](reeltalk/static/documents/wave-review.png)
- 
- #### Edit Review Page
- 
- ![Edit Review Page](reeltalk/static/documents/wave-edit-review.png)
-
- #### Delete Review Page
- 
- ![Delete Review Page](reeltalk/static/documents//wave-delete-review.png)
-  
- #### My Reviews Page
- 
- ![My Reviews Page](reeltalk/static/documents/wave-my-reviews-page.png)
- 
- #### Movie Reviews Page
- 
- ![Movie Reviews Page](reeltalk/static/documents/wave-movie-reviews-page.png)
- 
- #### 404 Page
- 
- ![404 Page](reeltalk/static/documents/wave-404.png)
- 
- #### 500 Page
- 
- ![500 Page](reeltalk/static/documents/wave-500-page.png)
-
-  #### 403 Page
- 
- ![403 Page](reeltalk/static/documents/wave-403.png)
 
 </details>
 
@@ -231,17 +120,20 @@ I took the opportunity to utilize Lighthouse within Chrome Developer Tools. This
 
 All pages have passed the CI Python Linter.
 
-### __init__.py
+### app.py
 
-![init.py](reeltalk/static/documents/linter-init.py.png)
+![app.py](docs/appCI.png)
 
 ### models.py
 
-![models.py](reeltalk/static/documents/linter-models.py.png)
+![models.py](docs/modelCI.png)
 
-### routes.py
+### forms.py
 
-![routes.py](reeltalk/static/documents/linter-routes.py.png)
+![forms.py](docs/formsCI.png)
+
+### config.py
+![config.py](docs/configCI.png)
 
 
 ### Manual Testing
@@ -253,23 +145,23 @@ All pages have passed the CI Python Linter.
 | Goals                                                        | How are they achieved?                                                                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
 | Register for an account                                    | There is a sign up link on the home page which encourages a user to create an account.
-| Search for movies | Once a user has signed up to an account. They can search for a movie by clicking the 'Review A Movie' nav link.
+| Search for books | Once a user has signed up to an account. They can search for a book and leave a comment.
 | Understand what the site is for and easily navigate their way around                          |   A description of what the site is is included on the home page.                                         |
-| I want the website to be responsive across varying devices.  | Bootstrap has been used in order to make ReelTalk responsive across a variety of devices.                               |
+| I want the website to be responsive across varying devices.  | Bootstrap has been used in order to make book1-review-app responsive across a variety of devices.                               |
 
 #### Returning Visitors and Frequent Visitors
 
 | Goals                                                                    | How are they achieved?                                                                                                                                                              |
 | :----------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Log into created account.                 |  If a user is not logged into an account, a login link is provided on the navbar and home page.                                              |
-|Create, edit and delete my own reviews. | A user has access to all of their reviews on the 'My Reviews Page' from here the user can edit and delete any existing reviews. They can create a new review by clicking on the 'Review A Movie' link. This allows a user to search for a movie and create a review.  |
-|Read other users reviews. | All reviews for all reviewed movies are displayed on the 'Movie Review' page. |
+| Log into created account.                 |  If a user is not logged into an account, a login registration/link is provided on the navbar on home page.                                              |
+|Create, edit and delete my own reviews. | A user has access to all of their reviews on the 'My Reviews Page' from here the user can edit and delete any existing reviews. They can create a new review searching for a book.
+|Read other users reviews. | 
 
 ### User Testing Summary
 
-On the whole ReelTalk is an engaging, user-friendly website that sucessfully meets the needs of movie lovers by providing a centralized community for sharing and discovering movie reviews. ReelTalk offers a comprehensive, up-to-date movie database by leveraging the TMDB database, this enhances the user's ability to search for and review films. The website focuses on user-generated content, providing a perspective from everyday moviegoers rather than relying on professional critics. Users can easily navigate the site, manage their reviews and enjoy a personalised experience, thanks to the websites accessible and intuitive interface. Security features such as authentications and authorization ensure the users can safely manage their own content. 
+The primary purpose of the site is to create an engaging and user-friendly platform where book lovers can share and discover other opinions. This website is designed to serve as a comprehensive resource for individuals looking to gain knowledge into thriller and courtroom stories.
 
-Whether you're a first time visitor, returning user or a frequent reviewer, ReelTalk offers a tailored experience that meets the needs of it's target audience. Which I believe makes the website a success and meets all of the initial goals set prior to creating the website. 
+Whether you're a first time visitor, returning user or a frequent reviewer, Padomabook-review-app offers a tailored experience that meets the needs of it's target audience. Which I believe makes the website a success and meets all of the initial goals set prior to creating the website. 
 
 ### Full Testing
 
@@ -277,12 +169,11 @@ Full testing was performed on the following devices:
 
 - Laptop:
 
-  - Macbook Pro 2015 13 inch screen
+  - Lenovo V14 G2 ALC
 
 - Mobile Devices:
-  - iPhone 15 pro.
-  - iPhone 12 pro.
-  - iPhone 11 pro.
+  - iPhone 15 pro max.
+  - iPhone 14 pro max.
   - Phone X.
 
 Each device tested the site using the following browsers:
@@ -296,9 +187,9 @@ Each device tested the site using the following browsers:
 | -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
 | ReelTalk Logo                                   | Link directs the user back to the home page                            | Clicked title                      | Home page reloads                                           | Pass      |
 | Login link (only shown if user is not logged in)                             | Directs user to the login page                                      | Clicked link                       | Redirected to the login page                                           | Pass      |
-| Movie reviews link (logged in users only) | Directs user to the movie reviews page | Clicked link                       | Redirected to the movie reviews page                           | Pass      |
+| Book reviews link (logged in users only) | Directs user to the book reviews page | Clicked link                       | Redirected to the book reviews page                           | Pass      |
 | My reviews link (logged in users only) | Directs user to the my reviews page | Clicked link                       | Redirected to the my reviews page                           | Pass      |
-| Review a movie link (logged in users only) | Directs user to the Review a movie page | Clicked link                       | Redirected to the Review a movie page                           | Pass      |
+| Review a book link (logged in users only) | Directs user to the Review a book page | Clicked link                       | Redirected to the Review a book page                           | Pass      |
 | Logout link (logged in users only) | Directs user to the home page | Clicked link                       | Redirected to the home page                           | Pass      |
 
 ### Footer
@@ -318,23 +209,22 @@ Each device tested the site using the following browsers:
 | Login link (only shown if user is not logged in)                             | Directs user to the login page                                      | Clicked link                       | Redirected to the login page                                           | Pass      |
 | Trending movied | The weeks top 12 trending movied are displayed | Loaded home page                       | Movie cards are dispplayed                           | Pass      |
 
-#### Sign Up Page
+#### Register Page
 
 | Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
 | -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
 | First name input                                    | The users first name should be more than 2 characters long                            | Entered first name less than 2 characters long                      | Flash message alerts the user they have not entered enough characters                                           | Pass      |
-| Last name input                                    | The users should enter their last name                            | Entered last name                       |                                            | Pass      |
-| Email input                                    | The users email should be more than 4 characters long                            | Entered email less than 4 characters long                      | Flash message alerts the user they have not entered enough characters                                           | Pass      |
-| Email input (already in use)                                    | The users email must be unique                            | Entered email which already exists in the database                     | Flash message alerts the user that the email is already in use characters                                           | Pass      |
-| Password input                                    | The users password should be between 8 and 20 characters long                            | Entered password less than 8 and more than 20 characters long                      | Flash message alerts the user they have not matched the correct criteria                                          | Pass      |
+| Last name input                                    | The users should enter their last name                            | Entered last name                       |                                                                                  | Pass      |
+| Password input                                    | The users password should be between 4 and 8 characters long                            | Entered password less than 4 and more than 8 characters long                      | Flash message alerts the user they have not matched the correct criteria                                          | Pass      |
 | Confirm password input                                    | The users password should match the password input field                            | Entered password which differs from the password input field                      | Flash message alerts the user that the passwords do not match                                          | Pass      |
-| Sign up button                                    | Link directs the user to the home page and displayed a message indicating the user has been created                            | Clicked sign up button                      | Redirected to the home page. Flash message displayed                                           | Pass      |
+| Register button                                    | Link directs the user to the home page and displayed a message indicating the user has been created                            | Clicked register button                      | Redirected to the home page. Flash message displayed                                           | Pass      |
 
 #### Login Page
 
 | Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
 | -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
-| Email input                                    | User to enter e-mail address                            | Enter email address                     | Flash message alerts the user if the email doesn't exist in the database                                           | Pass      |
+| Name input                                    | User to enter e-mail address                            | Enter 
+Full Name                     | Flash message alerts the user if the name doesn't exist in the database                                           | Pass      |
 | Password input                                    | User to enter password                            | Enter password                     | Flash message alerts the user if the password is incorrect                                           | Pass      |
 | Login button                                    | Directs the user to the 'My Reviews' page and a flash message appears with 'Successful Login'                            | Click button                     | Redirected to the 'My Reviews' page                                           | Pass      |
 
@@ -348,7 +238,7 @@ Each device tested the site using the following browsers:
 | Close button on modal                                    | Once clicked the modal will close                         | Clicked close button                     | Modal is closed                                           | Pass      |
 | No Reviews                                    | If the user has not posted any reviews a message is displayed stating now reviews have been made yet                         | No reviews created                    | Message displayed stating no reviews made                                           | Pass      |
 
-#### Edit Review Page
+#### Edit Comments Page
 
 | Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
 | -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
@@ -357,34 +247,13 @@ Each device tested the site using the following browsers:
 | Back button                                  | User is directed to their 'My Reviews' page                           | Clicked back button                     |  User redirected to the 'My Reviews' page                                        | Pass      |
 
 
-#### Movie Reviews Page
-
-| Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
-| -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
-| On page load                                   | All user reviews are displayed                           | Loaded page                     | All reviews are shown                                         | Pass      |
-| On page load                                   | If there are no reviews, then a message is displayed stating there are no reviews                            | Loaded page                     | No reviews message is displayed                                         | Pass      |
-
 #### Search Movies Page
 
 | Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
 | -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
-| Search input                                  | User to enter a movie title                           | Movie title entered                     | The search returns the movie title                                         | Pass      |
-| Search input (No result)                                  | User to enter a movie title                           | Movie title entered                     | Flash message indicates there is no such movie title                                         | Pass      |
+| Search input                                  | User to enter a book title                           | Book  title entered                     | The search returns the book title                                         | Pass      |
+| Search input (No result)                                  | User to enter a movie title                           | Book title entered                     | Flash message indicates there is no such book title                                         | Pass      |
 | Search button                                  | Directs user to search results page                           | Clicked button                     | Redircted to the search results page                                        | Pass      |
-
-#### Search Results Page
-
-| Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
-| -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
-| Movie card                                  | Once clicked directs the user to the review page                           | Clicked movie card                     | Redircted to the reviews page                                         | Pass      |
-| Movie card image                                  | If no image is returned from the TMDB API a stock image is displayed                           | Searched for movie with no image                     | Stock TMDB image displayed                                         | Pass      |
-
-#### Review Page
-
-| Feature                                            | Expected Outcome                                                       | Testing Performed                  | Result                                                      | Pass/Fail |
-| -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------- | --------- |
-| Text input                                  | User to enter their review (this is a required field)                           | Review entered                     | Review saved to the database with a flash message of success                                         | Pass      |
-| Submit review button                                  | User is directed to their 'My Reviews' page and a sucess message is displayed                           | Clicked submit review button                     |  User redirected to the 'My Reviews' page and success message displayed                                       | Pass      |
 
 #### 403 & 404 Pages
 
@@ -394,17 +263,3 @@ Each device tested the site using the following browsers:
 | 404 - User tries to access a page which doesn't exist on the website                               | 404 page is displayed                           | Tried to access a webpage which doesnt exist on the website                     | 404 page displayed                                          | Pass      |
 
 
-## Bugs
-
-### Solved Bugs
-
-| # | Bug | How I solved the issue |
-| :--- | :--- | :--- |
-| 1 | I was having an issue when deploying my project to Heroku. I was getting an error message `ModuleNotFoundError: No module named 'requests`     | I reached out to support to help diagnose the issue. It turns out that requests isn't a built in python module but is installed in gitpod by default. I added requests==2.28.1 to my requirements.txt file. Saved the changes and pushed to github and redeployed Reeltalk. These steps successfully resolved the issue  |
-| 2 | When displaying the movie titles within the bootstrap cards on the movie and my reviews pages. Some of the titles returned from the API were particulary long which caused the cards to no longer display as a grid on the screen| I resolved this by implementing and if statement. The if statement determined whether the movie title was over 30 characters if the title was over 30 characters then the movie title would only show the first 30 characters and when hovered over would show the full title. If the title was less than 30 characters then the title would be displayed as normal. This resolved the isse and all cards were displayed as a grid  |
-
-### Known Bugs
-
-| # | Bug | 
-| :--- | :--- | 
-| 1 | The release date for each movie returned from the API is in US format. The date is used on each of the movie cards across the website. Eventually I would like to rectify the issue by converting the dates to UK format to match the review created date | -->
