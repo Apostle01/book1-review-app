@@ -2,7 +2,7 @@
 https://padomabook-review-app-f5b05cde500b.herokuapp.com/
 https://apostle01.github.io/book1-review-app/
 # ![book1-review-app Screenshot of the website.](docs/am-i-responsive.png)
-Click here to acces the website.https://git.heroku.com/padomabook-review-app.git
+Click here to acces the website.https://padomabook-review-app-f5b05cde500b.herokuapp.com/
 
 book1-review-app is a simple web application for managing reviews. Users can view, add, and edit book reviews. It includes user authentication and a search functionality. This is my milestone project.
 
