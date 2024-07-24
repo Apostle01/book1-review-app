@@ -164,7 +164,7 @@ nav a:hover {
 
 .login-form-container input[type="submit"] {
     width: 100%; /* Submit button takes 100% width of its container */
-    background-color: #007BFF; /* Blue background */
+    background-color: #0054AD; /* Blue background */
     color: white;
     border: none;
     cursor: pointer;
@@ -173,6 +173,3 @@ nav a:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login-form-container input[type="submit"]:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-}

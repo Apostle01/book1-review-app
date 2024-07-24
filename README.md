@@ -1,5 +1,5 @@
 
-https://git.heroku.com/padomabook-review-app.git
+https://padomabook-review-app-f5b05cde500b.herokuapp.com/
 https://apostle01.github.io/book1-review-app/
 # [book1-review-app Screenshot of the website.](/docs/am-i-responsive.png)
 Click here to acces the website.https://git.heroku.com/padomabook-review-app.git
@@ -13,7 +13,7 @@ book1-review-app is a simple web application for managing reviews. Users can vie
     * Used for version control
 3. [Github](https://github.com/)
     * Used to store the code
-4. Balsamiq Wireframes
+4. [Balsamiq Wireframes](https://balsamiq.cloud)
     * Used to create wireframes for the project
 5 * UTF-8 characters
     * 
@@ -23,12 +23,12 @@ book1-review-app is a simple web application for managing reviews. Users can vie
     *Used to validate HTML code
 8. W3C Jigsaw CSS Validation Service
     * Used to validate the CSS code
-9. Wave web Accessibility Evaluation Tool
+9. [Wave web Accessibility Evaluation Tool]
     * Used to validate the accessibility of the web page
-10. CI Python Linter
+10. [CI Python Linter]
     * Used to validate python code
 
-## Testing
+## [Testing](testing.md file for testing)
 
 
 ## Table of Content
@@ -114,7 +114,7 @@ The relationship between the tables are as follows:
 - User to Review: One-to-Many. One user can write many reviews. This relationship is defined using `db.relationship` in the User model and the `db.ForeignKey` in the Review model.
 - Book to Review: One-to-Many. One book can have many reviews. This relationship is defined using `db.relationship` in the Book model and the `db.ForeignKey` in the Review model.
 
-![database schema](database-schema.png)
+![database schema](docs/draw-io.png)
 
 
 ## Features
@@ -243,7 +243,7 @@ Deployment on Heroku
 
 Usage
 
-Open your web browser and navigate to 'https://your-app-name.herokuapp.com' to access the application
+Open your web browser and navigate to 'https://padomabook-review-app.git.herokuapp.com' to access the application
 
 Routes
 . `/register`:Register a new user

@@ -111,10 +111,9 @@ def search():
         search_query = request.form.get('search', '')
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
-
- return render_template(
-    'search.html', books=books, search_query=search_query
-)
+    return render_template(
+        'search.html', books=books, search_query=search_query
+    )
 
 
 @app.route('/delete_book', methods=['GET', 'POST'])
@@ -127,9 +126,9 @@ def delete_book():
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
 
-  return render_template(
-    'delete_book.html', books=books, search_query=search_query
-)
+    return render_template(
+        'delete_book.html', books=books, search_query=search_query
+    )
 
 
 @app.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
@@ -147,7 +146,10 @@ def confirm_delete(book_id):
         except Exception as e:
             db.session.rollback()
             logger.error(f'Error deleting book: {e}')
-            flash(f'An error occurred while trying to delete the book: {str(e)}', 'danger')
+            flash(
+                f'An error occurred while trying to delete the book: {str(e)}',
+                'danger'
+            )
 
     return render_template('confirm_delete.html', book=book)
 
