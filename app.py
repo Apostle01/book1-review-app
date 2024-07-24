@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 @app.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
-    return render_template('index.html', messages=messages) # type: ignore
+    return render_template('home.html', messages=messages) # type: ignore
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -173,4 +173,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port,)
+    app.run(host='0.0.0.0', port=port, Debug=True)
