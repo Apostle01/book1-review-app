@@ -381,7 +381,7 @@ To fork the repository:
 
 9. Add each of your other environment variables except DEVELOPMENT and DB_URL from the env.py file as a Config Var. The result should look something like this:
 
-   ![config variables](-config-variables.png)
+   ![config variables](docs/config-vars.png)
 
  - NOTE: Delete the DEBUG variable once debugging is complete. 
 
