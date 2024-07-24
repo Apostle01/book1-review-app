@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, session, request
+from flask import Flask, url_for, flash, session, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, BookForm, CommentForm
@@ -9,6 +9,7 @@ import os
 
 if os.path.exists("env.py"):
     import env
+
 
 app = Flask(__name__)
 
@@ -33,10 +34,12 @@ with app.app_context():
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 @app.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
-    return render_template('home.html', messages=messages)
+    return render_template('index.html', messages=messages)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -51,6 +54,7 @@ def login():
             flash('Login failed. Check your credentials.', 'danger')
     return render_template('login.html', form=form)
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -58,12 +62,15 @@ def register():
         hashed_password = generate_password_hash(
             form.password.data, method='pbkdf2:sha256', salt_length=8
         )
-        new_user = Users(username=form.username.data, password=hashed_password)
+        new_user = Users(
+            username=form.username.data, password=hashed_password
+        )
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
 
 @app.route('/logout')
 def logout():
@@ -71,11 +78,15 @@ def logout():
     flash('You have been logged out', 'info')
     return redirect(url_for('home'))
 
+
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     form = BookForm()
     if form.validate_on_submit():
-        amazon_link = f"https://www.amazon.com/s?tag=faketag&k={form.name.data.replace(' ', '+')}"
+        amazon_link = (
+            f"https://www.amazon.com/s?tag=faketag&k="
+            f"{form.name.data.replace(' ', '+')}"
+        )
         new_book = Book(
             name=form.name.data,
             author=form.author.data,
@@ -90,6 +101,7 @@ def add_book():
         return redirect(url_for('search'))
     return render_template('add_book.html', form=form)
 
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     search_query = ""
@@ -100,7 +112,10 @@ def search():
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
 
-    return render_template('search.html', books=books, search_query=search_query)
+ return render_template(
+    'search.html', books=books, search_query=search_query
+)
+
 
 @app.route('/delete_book', methods=['GET', 'POST'])
 def delete_book():
@@ -112,12 +127,15 @@ def delete_book():
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
 
-    return render_template('delete_book.html', books=books, search_query=search_query)
+  return render_template(
+    'delete_book.html', books=books, search_query=search_query
+)
+
 
 @app.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
 def confirm_delete(book_id):
     book = Book.query.get_or_404(book_id)
-    
+
     if request.method == 'POST':
         try:
             # Delete associated comments
@@ -130,8 +148,9 @@ def confirm_delete(book_id):
             db.session.rollback()
             logger.error(f'Error deleting book: {e}')
             flash(f'An error occurred while trying to delete the book: {str(e)}', 'danger')
-    
+
     return render_template('confirm_delete.html', book=book)
+
 
 @app.route('/book/<int:book_id>', methods=['GET', 'POST'])
 def book_details(book_id):
@@ -144,9 +163,11 @@ def book_details(book_id):
         flash('Comment added successfully', 'success')
     return render_template('book_details.html', book=book, form=form)
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
