@@ -13,11 +13,11 @@ if os.path.exists("env.py"):
 app = Flask(__name__)
 
 # Use environment variables for configuration
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["SECRET_KEY"] = os.environ.get("'f5bc222cb7bcd4d4bc933528608bc608d3f25680723aaf60'")
 
 # Select the database based on development status
 if os.environ.get("DEVELOPMENT") == "True":
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("postgres://uxsxev1hftq:nQLfLAeCq9x3@ep-gentle-mountain-a23bxz6h.eu-central-1.aws.neon.tech/alive_tank_path_776536")
 else:
     uri = os.environ.get("DATABASE_URL")
     if uri.startswith("postgres://"):
