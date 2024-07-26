@@ -339,7 +339,7 @@ To fork the repository:
 
 1. Log in (or sign up) to Github.
 
-2. Go to the repository for this project, []).
+2. Go to the repository for this project, [].
 
 3. Click the Fork button in the top right corner.
 
@@ -414,7 +414,7 @@ To fork the repository:
 16. The app should now be up and running. Click "Open app" to view the deployed project.
 
 ## Testing
-Please see [testing.md](testing.md) file for both automated and manual testing of website.
+Please see ![Testing.md](testing.md) file for both automated and manual testing of website.
 
 ## Credits
 
