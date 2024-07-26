@@ -155,6 +155,28 @@ def book_details(book_id):
         flash('Comment added successfully', 'success')
     return render_template('book_details.html', book=book, form=form)  # type: ignore
 
+@app.route('/account', methods=['GET', 'POST'])
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('account.html', form=form)
+
+@app.route('/delete_account', methods=['POST'])
+def delete_account():
+    user = User.query.get(current_user.id)
+    db.session.delete(user)
+    db.session.commit()
+    flash('Your account has been deleted!', 'success')
+    return redirect(url_for('home'))
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404  # type: ignore
