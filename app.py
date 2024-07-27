@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, session, request, redirect
+from flask import Flask, render_template, url_for, flash, session, request, redirect  
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, BookForm, CommentForm
@@ -153,29 +153,8 @@ def book_details(book_id):
         db.session.add(new_comment)
         db.session.commit()
         flash('Comment added successfully', 'success')
-    return render_template('book_details.html', book=book, form=form)  # type: ignore
+    return render_template('book_details.html', book=book, form=form) # type: ignore
 
-@app.route('/account', methods=['GET', 'POST'])
-def account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-    return render_template('account.html', form=form)
-
-@app.route('/delete_account', methods=['POST'])
-def delete_account():
-    user = User.query.get(current_user.id)
-    db.session.delete(user)
-    db.session.commit()
-    flash('Your account has been deleted!', 'success')
-    return redirect(url_for('home'))
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -183,4 +162,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port,)
+    app.run(host='0.0.0.0', port=port, Debug=True)
