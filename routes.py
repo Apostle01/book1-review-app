@@ -1,7 +1,11 @@
-from flask import render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
 from app import app, db
 from app.forms import RegistrationForm, LoginForm, BookForm
 from app.models import User, Book
+from flask_migrate import Migrate
+from flask_login import LoginManager
+
 
 @app.route('/')
 @app.route('/home')
