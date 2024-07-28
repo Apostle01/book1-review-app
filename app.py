@@ -4,13 +4,33 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://uxsxev1hftq:nQLfLAeCq9x3@ep-gentle-mountain-a23bxz6h.eu-central-1.aws.neon.tech/alive_tank_path_776536'
+app.config['SECRET_KEY'] = 'f5bc222cb7bcd4d4bc933528608bc608d3f25680723aaf60'
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login = LoginManager(app)
 
-from app import routes  # Import routes after initializing app, db, and login_manager
+from yourapplication import routes, models
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, Debug=True)
+
+
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_migrate import Migrate
+# from flask_login import LoginManager
+
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+# db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
+# login_manager = LoginManager(app)
+# login_manager.login_view = 'login'
+
+# from app import routes  # Import routes after initializing app, db, and login_manager
 
 
 # from flask import Flask, render_template, url_for, flash, session, request, redirect  
