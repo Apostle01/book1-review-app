@@ -1,5 +1,6 @@
 import os
 import logging
+from app import db
 from flask import Flask, render_template, url_for, flash, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
