@@ -13,25 +13,29 @@ if os.path.exists("env.py"):
 app = Flask(__name__)
 
 # Use environment variables for configuration
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY") or 'a_default_fallback_secret_key'
+app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY', 'your_default_secret_key')
 
 # Select the database based on development status
 if os.environ.get("DEVELOPMENT") == "True":
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL_DEV")
 else:
     uri = os.environ.get("DATABASE_URL")
-    if uri.startswith("postgres://"):
+    if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
     app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
-db.init_app(app)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-with app.app_context():
-    db.create_all()
+db.init_app(app)
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+@app.before_first_request
+def create_tables():
+    with app.app_context():
+        db.create_all()
 
 @app.route('/')
 def home():
@@ -46,10 +50,10 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             session['user_id'] = user.id
             flash('Login successful', 'success')
-            return redirect(url_for('home'))  # type: ignore
+            return redirect(url_for('home'))
         else:
             flash('Login failed. Check your credentials.', 'danger')
-    return render_template('login.html', form=form)  # type: ignore
+    return render_template('login.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -64,14 +68,14 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful', 'success')
-        return redirect(url_for('login'))  # type: ignore
-    return render_template('register.html', form=form)  # type: ignore
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
 
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     flash('You have been logged out', 'info')
-    return redirect(url_for('home'))  # type: ignore
+    return redirect(url_for('home'))
 
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
@@ -92,8 +96,8 @@ def add_book():
         db.session.add(new_book)
         db.session.commit()
         flash('Book added successfully', 'success')
-        return redirect(url_for('search'))  # type: ignore
-    return render_template('add_book.html', form=form)  # type: ignore
+        return redirect(url_for('search'))
+    return render_template('add_book.html', form=form)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -104,7 +108,7 @@ def search():
         search_query = request.form.get('search', '')
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
-    return render_template(  # type: ignore
+    return render_template(
         'search.html', books=books, search_query=search_query
     )
 
@@ -118,7 +122,7 @@ def delete_book():
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
 
-    return render_template(  # type: ignore
+    return render_template(
         'delete_book.html', books=books, search_query=search_query
     )
 
@@ -133,7 +137,7 @@ def confirm_delete(book_id):
             db.session.delete(book)
             db.session.commit()
             flash(f'Book "{book.name}" deleted successfully', 'success')
-            return redirect(url_for('delete_book'))  # type: ignore
+            return redirect(url_for('delete_book'))
         except Exception as e:
             db.session.rollback()
             logger.error(f'Error deleting book: {e}')
@@ -142,7 +146,7 @@ def confirm_delete(book_id):
                 'danger'
             )
 
-    return render_template('confirm_delete.html', book=book)  # type: ignore
+    return render_template('confirm_delete.html', book=book)
 
 @app.route('/book/<int:book_id>', methods=['GET', 'POST'])
 def book_details(book_id):
@@ -153,12 +157,12 @@ def book_details(book_id):
         db.session.add(new_comment)
         db.session.commit()
         flash('Comment added successfully', 'success')
-    return render_template('book_details.html', book=book, form=form)  # type: ignore
+    return render_template('book_details.html', book=book, form=form)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404  # type: ignore
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='127.0.0.1', port=port, debug=True)
