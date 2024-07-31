@@ -1,24 +1,51 @@
-# app/__init__.py
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-# from flask_login import LoginManager
+from config import Config
+# import os
+
+# if os.path.exists("env.py"):
+#     import env
 
 db = SQLAlchemy()
-migrate = Migrate()
 
-def create_app():
+def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object('app.config.Config')
+    app.config.from_object(Config_class)
 
+    # Initialize the database
     db.init_app(app)
-    migrate.init_app(app, db)
 
-    with app.app_context():
-        from . import routes
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
+
+    # Register Blueprints here if you have any
+    from .routes import main
+    app.register_blueprint(main)
 
     return app
+
+
+# # app/__init__.py
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_migrate import Migrate
+# # from flask_login import LoginManager
+
+# db = SQLAlchemy()
+# migrate = Migrate()
+
+# def create_app():
+#     app = Flask(__name__)
+#     app.config.from_object('app.config.Config')
+
+#     db.init_app(app)
+#     migrate.init_app(app, db)
+
+#     with app.app_context():
+#         from . import routes
+#         db.create_all()
+
+#     return app
 # from flask import Flask
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
