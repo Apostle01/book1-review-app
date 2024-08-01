@@ -293,7 +293,7 @@ please open an issue or submit a pull request for any improvements.
 #### Setup
 1. Clone the book1-review-app repository:
 
-   - To clone the ReelTalk repository
+   - To clone the book1-review-app repository
 
       1. Log in (or sign up) to GitHub.
       2. Go to the repository for this project, book1-review-app
