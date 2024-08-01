@@ -22,3 +22,8 @@ os.environ.setdefault("DEVELOPMENT", "True")
 os.environ.setdefault(
     "DB_URL", 'postgresql://postgres:Admin@localhost/books'
 )
+
+# SECRET_KEY='your_secret_key_here'
+# DATABASE_URL='postgres://user:password@host:port/dbname'
+# DEV_DATABASE_URL='postgres://user:password@host:port/dev_dbname'
+# DEVELOPMENT=True
