@@ -16,7 +16,8 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
 uri = os.environ.get("DATABASE_URL")
 if uri and uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
-app.config["SQLALCHEMY_DATABASE_URI"] = uri
+app.config["SQLALCHEMY_DATABASE_URI"] = uri or "postgresql://postgres:Admin@localhost/postgres"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
@@ -160,4 +161,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
