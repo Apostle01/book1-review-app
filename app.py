@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, url_for, flash, session, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -5,28 +6,22 @@ from forms import LoginForm, RegistrationForm, BookForm, CommentForm
 from models import db, Users, Book, Comment
 from config import Config
 import logging
-import os
-
-if os.path.exists("env.py"):
-    import env
 
 app = Flask(__name__)
 
 # Use environment variables for configuration
-app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY', 'your_default_secret_key')
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
 
 # Select the database based on development status
-if os.environ.get("DEVELOPMENT") == "True":
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL_DEV")
-else:
-    uri = os.environ.get("DATABASE_URL")
-    if uri and uri.startswith("postgres://"):
-        uri = uri.replace("postgres://", "postgresql://", 1)
-    app.config["SQLALCHEMY_DATABASE_URI"] = uri
-
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+uri = os.environ.get("DATABASE_URL")
+if uri and uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
 db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
