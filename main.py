@@ -1,20 +1,25 @@
 import os
-from flask import Flask, app, render_template, url_for, flash, session, request, redirect
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, BookForm, CommentForm
-from app import db, Users, Book, Comment
-from app.routes import app_bp # type: ignore
-from config import Config
 import logging
+from flask import Flask, render_template, url_for, flash, redirect, request, session
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager
+from app.forms import LoginForm, RegistrationForm, BookForm, CommentForm
+from app.models import Users, Book, Comment
+
+# Initialize the database
+db = SQLAlchemy()
+migrate = Migrate()
+login = LoginManager()
 
 def create_app():
     app = Flask(__name__)
 
-# Use environment variables for configuration
+    # Use environment variables for configuration
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your_secret_key")
 
-# Select the database based on development status
+    # Select the database based on development status
     uri = os.environ.get("DATABASE_URL")
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
@@ -22,12 +27,16 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
+    migrate.init_app(app, db)
+    login.init_app(app)
+
+    from app.routes import app_bp
     app.register_blueprint(app_bp)
 
     return app
 
-# with app.app_context():
-#     db.create_all()
+# Create the Flask app
+app = create_app()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -109,9 +118,7 @@ def search():
         search_query = request.form.get('search', '')
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
-    return render_template(
-        'search.html', books=books, search_query=search_query
-    )
+    return render_template('search.html', books=books, search_query=search_query)
 
 @app.route('/delete_book', methods=['GET', 'POST'])
 def delete_book():
@@ -122,10 +129,7 @@ def delete_book():
         search_query = request.form.get('search', '')
         if search_query:
             books = Book.query.filter(Book.name.contains(search_query)).all()
-
-    return render_template(
-        'delete_book.html', books=books, search_query=search_query
-    )
+    return render_template('delete_book.html', books=books, search_query=search_query)
 
 @app.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
 def confirm_delete(book_id):
@@ -142,10 +146,7 @@ def confirm_delete(book_id):
         except Exception as e:
             db.session.rollback()
             logger.error(f'Error deleting book: {e}')
-            flash(
-                f'An error occurred while trying to delete the book: {str(e)}',
-                'danger'
-            )
+            flash(f'An error occurred while trying to delete the book: {str(e)}', 'danger')
 
     return render_template('confirm_delete.html', book=book)
 
