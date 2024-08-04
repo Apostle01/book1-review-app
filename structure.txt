@@ -2,6 +2,7 @@ book1-review-app/
 │
 ├── app/
 │   ├── __init__.py
+    app.py
 │   ├── models.py
 │   ├── forms.py
 │   └── routes.py
@@ -20,4 +21,3 @@ book1-review-app/
 ├── config.py
 ├── Procfile
 ├── requirements.txt
-└── run.py
