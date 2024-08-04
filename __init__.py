@@ -1,12 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
-from app import routes  # Import routes at the end to avoid circular imports
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'your-database-uri'
+    app.config['SECRET_KEY'] = 'your-secret-key'
+    
+    db.init_app(app)
+    
+    from app.routes import app_bp
+    app.register_blueprint(app_bp)
+
+    return app
 
 
 # from flask import Flask

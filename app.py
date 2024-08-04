@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, flash, session, request, redirect
+from flask import Flask, app, render_template, url_for, flash, session, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, BookForm, CommentForm
