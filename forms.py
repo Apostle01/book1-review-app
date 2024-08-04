@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, FloatField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
-from app.models import Users
+# from app.models import Users
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -17,6 +17,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_username(self, username):
+        from app.models import Users  # Import here to avoid circular dependency
         user = Users.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('That username is taken. Please choose a different one.')
