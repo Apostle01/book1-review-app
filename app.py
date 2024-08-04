@@ -10,7 +10,7 @@ import logging
 app = Flask(__name__)
 
 # Use environment variables for configuration
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your_secret_key")
 
 # Select the database based on development status
 uri = os.environ.get("DATABASE_URL")
