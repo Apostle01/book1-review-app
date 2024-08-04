@@ -5,18 +5,18 @@ from app.models import Users, Book, Comment
 import logging
 from app import db
 
-main = Blueprint('main', __name__)
+app = Blueprint('app', __name__)
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@main.route('/')
+@app.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
     return render_template('home.html', messages=messages)
 
-@main.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -24,12 +24,12 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             session['user_id'] = user.id
             flash('Login successful', 'success')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('app.home'))
         else:
             flash('Login failed. Check your credentials.', 'danger')
     return render_template('login.html', form=form)
 
-@main.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -42,16 +42,16 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful', 'success')
-        return redirect(url_for('main.login'))
+        return redirect(url_for('app.login'))
     return render_template('register.html', form=form)
 
-@main.route('/logout')
+@app.route('/logout')
 def logout():
     session.pop('user_id', None)
     flash('You have been logged out', 'info')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('app.home'))
 
-@main.route('/add_book', methods=['GET', 'POST'])
+@app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     form = BookForm()
     if form.validate_on_submit():
@@ -70,10 +70,10 @@ def add_book():
         db.session.add(new_book)
         db.session.commit()
         flash('Book added successfully', 'success')
-        return redirect(url_for('main.search'))
+        return redirect(url_for('app.search'))
     return render_template('add_book.html', form=form)
 
-@main.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     search_query = ""
     books = []
@@ -86,7 +86,7 @@ def search():
         'search.html', books=books, search_query=search_query
     )
 
-@main.route('/delete_book', methods=['GET', 'POST'])
+@app.route('/delete_book', methods=['GET', 'POST'])
 def delete_book():
     search_query = ""
     books = []
@@ -100,7 +100,7 @@ def delete_book():
         'delete_book.html', books=books, search_query=search_query
     )
 
-@main.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
+@app.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
 def confirm_delete(book_id):
     book = Book.query.get_or_404(book_id)
 
@@ -111,7 +111,7 @@ def confirm_delete(book_id):
             db.session.delete(book)
             db.session.commit()
             flash(f'Book "{book.name}" deleted successfully', 'success')
-            return redirect(url_for('main.delete_book'))
+            return redirect(url_for('app.delete_book'))
         except Exception as e:
             db.session.rollback()
             logger.error(f'Error deleting book: {e}')
@@ -122,7 +122,7 @@ def confirm_delete(book_id):
 
     return render_template('confirm_delete.html', book=book)
 
-@main.route('/book/<int:book_id>', methods=['GET', 'POST'])
+@app.route('/book/<int:book_id>', methods=['GET', 'POST'])
 def book_details(book_id):
     book = Book.query.get_or_404(book_id)
     form = CommentForm()
@@ -133,7 +133,7 @@ def book_details(book_id):
         flash('Comment added successfully', 'success')
     return render_template('book_details.html', book=book, form=form)
 
-@main.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
