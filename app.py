@@ -3,26 +3,31 @@ from flask import Flask, render_template, url_for, flash, session, request, redi
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, BookForm, CommentForm
-from models import db, Users, Book, Comment
+from app import db, Users, Book, Comment
+from app.routes import app_bp # type: ignore
 from config import Config
 import logging
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
 
 # Use environment variables for configuration
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your_secret_key")
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your_secret_key")
 
 # Select the database based on development status
-uri = os.environ.get("DATABASE_URL")
-if uri and uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-app.config["SQLALCHEMY_DATABASE_URI"] = uri or "postgresql://postgres:Admin@localhost/postgres"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    uri = os.environ.get("DATABASE_URL")
+    if uri and uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri or "postgresql://postgres:Admin@localhost/postgres"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db.init_app(app)
+    db.init_app(app)
+    app.register_blueprint(app_bp)
 
-with app.app_context():
-    db.create_all()
+    return app
+
+# with app.app_context():
+#     db.create_all()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

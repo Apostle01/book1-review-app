@@ -1,28 +1,39 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from config import Config
-# import os
 
-# if os.path.exists("env.py"):
-#     import env
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
 
-db = SQLAlchemy()
+from app import routes  # Import routes at the end to avoid circular imports
 
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(app.config.Config)
 
-    # Initialize the database
-    db.init_app(app)
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
+# from config import Config
+# # import os
 
-    # with app.app_context():
-    #     db.create_all()
+# # if os.path.exists("env.py"):
+# #     import env
 
-    # Register Blueprints here if you have any
-    from .routes import main
-    app.register_blueprint(main)
+# db = SQLAlchemy()
 
-    return app
+# def create_app(config_class=Config):
+#     app = Flask(__name__)
+#     app.config.from_object(app.config.Config)
+
+#     # Initialize the database
+#     db.init_app(app)
+
+#     # with app.app_context():
+#     #     db.create_all()
+
+#     # Register Blueprints here if you have any
+#     from .routes import main
+#     app.register_blueprint(main)
+
+#     return app
 
 
 # # app/__init__.py
