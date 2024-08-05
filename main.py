@@ -1,17 +1,17 @@
 import os
 import logging
 from flask import Flask, render_template, url_for, flash, redirect, request, session
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import LoginForm, RegistrationForm, BookForm, CommentForm
 from app.models import Users, Book, Comment
 
 # Initialize the database
 db = SQLAlchemy()
 migrate = Migrate()
-login = LoginManager()
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
@@ -28,7 +28,7 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
-    login.init_app(app)
+    login_manager.init_app(app)
 
     from app.routes import app_bp
     app.register_blueprint(app_bp)
@@ -47,6 +47,10 @@ def create_tables():
     with app.app_context():
         db.create_all()
 
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(int(user_id))
+
 @app.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
@@ -58,7 +62,7 @@ def login():
     if form.validate_on_submit():
         user = Users.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
-            session['user_id'] = user.id
+            login_user(user)
             flash('Login successful', 'success')
             return redirect(url_for('home'))
         else:
@@ -83,7 +87,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('user_id', None)
+    logout_user()
     flash('You have been logged out', 'info')
     return redirect(url_for('home'))
 
