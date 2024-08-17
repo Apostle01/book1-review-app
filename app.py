@@ -1,25 +1,33 @@
 import os
 import logging
-from app import create_app, db
-from flask import Flask, render_template, url_for, flash, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
+from werkzeug.security import check_password_hash
+from flask_login import LoginManager, login_user, current_user, login_required
+from app.forms import RegistrationForm, LoginForm, BookForm, UpdateAccountForm
+from app.models import User, Book, Comment
 
+# Initialize Flask app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgres://uxsxev1hftq:nQLfLAeCq9x3@ep-gentle-mountain-a23bxz6h.eu-central-1.aws.neon.tech/alive_tank_path_776536')
+
+# Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://uxsxev1hftq:nQLfLAeCq9x3@ep-gentle-mountain-a23bxz6h.eu-central-1.aws.neon.tech/alive_tank_path_776536')
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'f5bc222cb7bcd4d4bc933528608bc608d3f25680723aaf60')
 
+# Database setup
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# Login manager setup
 login = LoginManager(app)
 
-from app.forms import RegistrationForm, LoginForm, BookForm, AccountForm
-from app.models import User, Book, Comment
+
 
 # Logger setup
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
 
 @app.route('/')
 @app.route('/home')
@@ -45,11 +53,19 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
     form = LoginForm()
     if form.validate_on_submit():
-        # Authentication logic here
-        flash('Login successful!', 'success')
-        return redirect(url_for('home'))
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            flash('Login successful!', 'success')
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
+        else:
+            flash('Invalid username or password', 'danger')
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -116,14 +132,19 @@ def confirm_delete(book_id):
     return render_template('confirm_delete.html', book=book)
 
 @app.route('/account', methods=['GET', 'POST'])
+@login_required
 def account():
-    form = AccountForm()
+    form = UpdateAccountForm()
     if form.validate_on_submit():
-        # Update user account logic here
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('account'))
-    return render_template('account.html', form=form)
-
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('account.html', title='Account', form=form)
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
