@@ -1,23 +1,20 @@
 book1-review-app/
-│
 ├── app/
 │   ├── __init__.py
-│   ├── forms.py
 │   ├── models.py
-│   ├── routes.py
-│   ├── templates/
-│   │   ├── home.html
-│   │   ├── book_detail.html
-│   │   ├── register.html
-│   │   ├── login.html
-│   │   ├── add_book.html
-│   │   ├── search.html
-│   │   ├── delete_book.html
-│   │   ├── account.html
-│   │   └── 404.html
-│   └── static/
-├── migrations/
-├── requirements.txt
-├── runtime.txt
+│   ├── forms.py
+│   └── routes.py
+├── templates/
+│   ├── home.html
+│   ├── login.html
+│   ├── register.html
+│   ├── add_book.html
+│   ├── search.html
+│   ├── delete_book.html
+│   ├── confirm_delete.html
+│   ├── book_details.html
+│   └── 404.html
+├── config.py
 ├── Procfile
-└── app.py
+├── requirements.txt
+└── main.py

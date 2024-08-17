@@ -12,7 +12,11 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 login_manager = LoginManager(app)
+
 from app import routes, models
 app.register_blueprint(routes.bp)
 from app import routes, models
 app.register_blueprint(routes.bp)
+
+
+from app import routes, models
