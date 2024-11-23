@@ -24,7 +24,7 @@ else:
         uri = uri.replace("postgres://", "postgresql://", 1)
     app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
-db.init_app(app)
+db.SQLAlchemy(app)
 
 with app.app_context():
     db.create_all()
