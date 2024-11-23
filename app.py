@@ -19,12 +19,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'f5bc222cb7bcd4d4bc93352
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-<<<<<<< HEAD
-db.SQLAlchemy(app)
-=======
 # Login manager setup
 login = LoginManager(app)
->>>>>>> a887036925e9bf99e16daa5b8fcf8abfc4dc4866
 
 
 
