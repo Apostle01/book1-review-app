@@ -1,15 +1,23 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
 {% block content %}
     <h1>Register</h1>
-    <form method="POST">
+    <form method="POST" action="{{ url_for('register') }}">
         {{ form.hidden_tag() }}
-        <label for="username">{{ form.username.label }}</label>
-        {{ form.username }}
-        <label for="password">{{ form.password.label }}</label>
-        {{ form.password }}
-        <label for="confirm_password">{{ form.confirm_password.label }}</label>
-        {{ form.confirm_password }}
-        <input type="submit" value="Register">
+        <div>
+            {{ form.username.label }} {{ form.username(size=20) }}
+        </div>
+        <div>
+            {{ form.email.label }} {{ form.email(size=20) }}
+        </div>
+        <div>
+            {{ form.password.label }} {{ form.password(size=20) }}
+        </div>
+        <div>
+            {{ form.confirm_password.label }} {{ form.confirm_password(size=20) }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
     </form>
 {% endblock %}
