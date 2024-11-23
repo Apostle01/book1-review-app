@@ -4,15 +4,14 @@ from datetime import datetime
 from app import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    comments = db.relationship('Comment', backref='author', lazy=True)
-
+    
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
