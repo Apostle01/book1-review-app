@@ -7,6 +7,9 @@ from werkzeug.security import check_password_hash
 from flask_login import LoginManager, login_user, current_user, login_required
 from app.forms import RegistrationForm, LoginForm, BookForm, UpdateAccountForm
 from app.models import User, Book, Comment
+from app import create_app  # Import create_app function
+
+app = create_app()  # Initialize the app
 
 # Initialize Flask app
 app = Flask(__name__)

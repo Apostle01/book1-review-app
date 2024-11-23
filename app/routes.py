@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import LoginForm, RegistrationForm, BookForm, CommentForm
 from app.models import Users, Book, Comment
 import logging
-from main import db
+from app import db
 
 app_bp = Blueprint('app_bp', __name__)
 
