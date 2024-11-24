@@ -1,15 +1,12 @@
 from flask import Blueprint, render_template, url_for, flash, session, request, redirect
+from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.forms import LoginForm, RegistrationForm, BookForm, CommentForm
-# from app.models import Users, Book, Comment
-import logging
-from app import db
+from .forms import LoginForm, RegistrationForm, BookForm, CommentForm
+from . import db  # Import db from initialized module
+
 
 app_bp = Blueprint('app_bp', __name__)
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 @app_bp.route('/')
 def home():
@@ -45,11 +42,13 @@ def register():
         return redirect(url_for('app_bp.login'))
     return render_template('register.html', form=form)
 
-@app_bp.route('/logout')
+@app.route('/logout')
+@login_required
 def logout():
-    session.pop('user_id', None)
+    logout_user()
     flash('You have been logged out', 'info')
-    return redirect(url_for('app_bp.home'))
+    return redirect(url_for('home'))
+
 
 @app_bp.route('/add_book', methods=['GET', 'POST'])
 def add_book():
