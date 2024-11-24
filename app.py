@@ -10,6 +10,7 @@ from app.forms import RegistrationForm, LoginForm, BookForm, UpdateAccountForm
 from app.models import User, Book, Comment
 from app import create_app, db  # Ensure db is imported correctly from app factory
 
+
 # Load environment variables
 load_dotenv()
 
