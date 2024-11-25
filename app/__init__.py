@@ -24,9 +24,8 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = 'login'  # Specify login route for @login_required
 
-    # Register the Blueprint
-    from app import routes
-    from app.routes import app_bp  # Ensure app.routes defines `app_bp`
-    app.register_blueprint(routes.bp)
+   
+    from app.routes import app  
+   
 
     return app

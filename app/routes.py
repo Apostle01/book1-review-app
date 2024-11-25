@@ -11,23 +11,16 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Define Blueprint
-app_bp = Blueprint('app_bp', __name__)
+app = Blueprint('app', __name__)
 
-# Routes
-bp = Blueprint('routes', __name__)
 
-@app_bp.route('/')
-@app_bp.route('/home')
-def home():
-    """Render the homepage."""
-    return render_template('home.html')
-
-@app_bp.route('/')
+@app.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
+    app.logger.info("Home route accessed.")
     return render_template('home.html', messages=messages)
 
-@app_bp.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -39,7 +32,7 @@ def login():
         flash('Login failed. Check your credentials.', 'danger')
     return render_template('login.html', form=form)
 
-@app_bp.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -55,14 +48,14 @@ def register():
         return redirect(url_for('app_bp.login'))
     return render_template('register.html', form=form)
 
-@app_bp.route('/logout')
+@app.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash('You have been logged out', 'info')
     return redirect(url_for('app_bp.home'))
 
-@app_bp.route('/add_book', methods=['GET', 'POST'])
+@app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     form = BookForm()
     if form.validate_on_submit():
@@ -84,19 +77,21 @@ def add_book():
         return redirect(url_for('app_bp.search'))
     return render_template('add_book.html', form=form)
 
-@app_bp.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     search_query = request.form.get('search', '')
     books = Book.query.filter(Book.name.contains(search_query)).all() if search_query else []
     return render_template('search.html', books=books, search_query=search_query)
 
-@app_bp.route('/delete_book', methods=['GET', 'POST'])
-def delete_book():
+@app.route('/search_books', methods=['GET', 'POST'])
+def search_books():
+    """Search and display books for potential deletion."""
     search_query = request.form.get('search', '')
     books = Book.query.filter(Book.name.contains(search_query)).all() if search_query else []
     return render_template('delete_book.html', books=books, search_query=search_query)
 
-@app_bp.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
+
+@app.route('/delete_book/<int:book_id>', methods=['GET', 'POST'])
 def confirm_delete(book_id):
     book = Book.query.get_or_404(book_id)
     if request.method == 'POST':
@@ -113,7 +108,7 @@ def confirm_delete(book_id):
             flash(f'An error occurred while trying to delete the book: {e}', 'danger')
     return render_template('confirm_delete.html', book=book)
 
-@app_bp.route('/book/<int:book_id>', methods=['GET', 'POST'])
+@app.route('/book/<int:book_id>', methods=['GET', 'POST'])
 def book_details(book_id):
     book = Book.query.get_or_404(book_id)
     form = CommentForm()
@@ -126,6 +121,6 @@ def book_details(book_id):
     return render_template('book_details.html', book=book, form=form)
 
 # Error handler
-@app_bp.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('404.html', message="The requested URL was not found"), 404
