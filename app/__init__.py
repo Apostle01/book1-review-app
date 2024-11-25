@@ -10,7 +10,7 @@ login_manager = LoginManager()
 migrate = Migrate()
 
 def create_app():
-    app = Flask(__name__, template_folder='path_to_your_templates')
+    app = Flask(__name__, template_folder='app/templates')
 
     # Configuration for the app
     app.config['SECRET_KEY'] = 'f5bc222cb7bcd4d4bc933528608bc608d3f25680723aaf60'  # Replace with your secret key
