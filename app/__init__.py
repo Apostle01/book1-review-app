@@ -10,7 +10,7 @@ login_manager = LoginManager()
 migrate = Migrate()
 
 def create_app():
-    app = Flask(__name__, template_folder='app/templates')
+    app = Flask(__name__, template_folder='templates', static_folder='static')
 
     # Configuration for the app
     app.config['SECRET_KEY'] = 'f5bc222cb7bcd4d4bc933528608bc608d3f25680723aaf60'  # Replace with your secret key
@@ -25,7 +25,8 @@ def create_app():
     login_manager.login_view = 'login'  # Specify login route for @login_required
 
     # Register the Blueprint
+    from app import routes
     from app.routes import app_bp  # Ensure app.routes defines `app_bp`
-    app.register_blueprint(app_bp)
+    app.register_blueprint(routes.bp)
 
     return app

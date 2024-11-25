@@ -26,17 +26,17 @@ logging.basicConfig(
 )
 
 @app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/')
-@app.route('/home')
 def home():
-    """Homepage with paginated book listings."""
-    page = request.args.get('page', 1, type=int)
-    books = Book.query.paginate(page=page, per_page=10)
-    return render_template('home.html', books=books, title="Home")
+    return render_template('home.html')
+
+
+# @app.route('/')
+# @app.route('/home')
+# def home():
+#     """Homepage with paginated book listings."""
+#     page = request.args.get('page', 1, type=int)
+#     books = Book.query.paginate(page=page, per_page=10)
+#     return render_template('home.html', books=books, title="Home")
 
 
 @app.route('/book/<int:book_id>')

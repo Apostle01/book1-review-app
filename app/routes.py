@@ -14,6 +14,14 @@ logging.basicConfig(level=logging.INFO)
 app_bp = Blueprint('app_bp', __name__)
 
 # Routes
+bp = Blueprint('routes', __name__)
+
+@app_bp.route('/')
+@app_bp.route('/home')
+def home():
+    """Render the homepage."""
+    return render_template('home.html')
+
 @app_bp.route('/')
 def home():
     messages = ["Welcome to the Book Review App!", "Enjoy your stay!"]
