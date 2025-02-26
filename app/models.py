@@ -24,9 +24,9 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     author = db.Column(db.String(200), nullable=False)
-    details = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    image_link = db.Column(db.String(300))
+    details = db.Column(db.Text, nullable=True)
+    price = db.Column(db.Float, nullable=True)
+    image_link = db.Column(db.String(300), nullable=True)
     amazon_link = db.Column(db.String(300))
     comments = db.relationship('Comment', backref='book', lazy=True)
 

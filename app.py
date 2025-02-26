@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 from dotenv import load_dotenv
+from app.models import Book, User, comment
 
 # Load environment variables
 load_dotenv()
